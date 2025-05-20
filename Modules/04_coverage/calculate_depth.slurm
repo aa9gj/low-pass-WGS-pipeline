@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#SBATCH --job-name=coverage_calc        # job name
+#SBATCH --job-name=coverage_calc          # job name
 #SBATCH --output=logs/coverage_%A_%a.out  # stdout (%A = jobID, %a = array index)
 #SBATCH --error=logs/coverage_%A_%a.err   # stderr
-#SBATCH --time=06:00:00                 # max run time (HH:MM:SS)
-#SBATCH --cpus-per-task=4               # threads per task (for samtools)
-#SBATCH --mem=32G                       # memory per task
-#SBATCH --array=1-                     # replace N with number of samples
+#SBATCH --time=06:00:00                   # max run time (HH:MM:SS)
+#SBATCH --cpus-per-task=4                 # threads per task (for samtools)
+#SBATCH --mem=32G                         # memory per task
+#SBATCH --array=1-<MAX-INDEX>             # replace <MAX-INDEX> with number of samples
 
 
 # created samples.txt using ls *.sam | sed 's/\.sam$//' > samples.txt
