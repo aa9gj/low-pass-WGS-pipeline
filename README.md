@@ -31,19 +31,15 @@ This repository offers a modular, SLURM-compatible pipeline for low-pass sequenc
 
 6. Post-Alignment Processing (modules/05_processing)
    - dedup.sh: Mark duplicates with Picard/GATK MarkDuplicates.
-   - bqsr.sh: BaseRecalibrator (requires known-sites VCFs).
-   - apply_bqsr.sh: ApplyBQSR to recalibrate BAM.
+   - bqsr.sh: BaseRecalibrator (requires known-sites VCFs). Beware, only works for high confidence species (e.g. human/mouse)
+   - apply_bqsr.sh: ApplyBQSR to recalibrate BAM. Beware, only works for high confidence species (e.g. human/mouse)
 
 7. Variant Calling & Genotyping (modules/06_variant_calling)
 
    - haplotypecaller_gvcf.sh: GATK HaplotypeCaller in -ERC GVCF mode.
-   - combine_gvcfs.sh: CombineGVCFs for joint analysis.
+   - genomicDBImport.sh: Create a joint variant db by chr
    - genotype_gvcfs.sh: GenotypeGVCFs to produce cohort VCF.
-   - variant_filtering.sh: Apply VQSR or hard filters to SNPs/INDELs.
+   - variant_filtering.sh: Apply VQSR or hard filters to SNPs/INDELs. Beware, only works for high confidence species (e.g. human/mouse)
 
-8. VCF Merging & Indexing (modules/07_vcf_merge & 08_compress_index)
-   - Merge per-sample or per-chromosome VCFs via bcftools merge (-m all).
-   - Compress (bgzip) and index (tabix) final VCFs.
-
-9. Genotype Imputation (modules/09_imputation)
+8. Genotype Imputation (modules/09_imputation)
    - beagle_impute.sh: Run BEAGLE with reference panel, genetic maps, and compute dosage R².
