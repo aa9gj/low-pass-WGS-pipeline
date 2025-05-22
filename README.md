@@ -1,6 +1,12 @@
-# WGS-low-pass-sequencing-analysis
+# Low-pass Whole Genome Sequencing (LP-WGS)
 
-This repository provides a modular, SLURM-friendly pipeline for low-pass sequencing analysis using GATK and related tools. It covers raw data QC, reference indexing, alignment, per-sample BAM QC, coverage estimation, duplicate marking, base quality score recalibration (BQSR), variant calling (GVCF+joint genotyping), variant filtering, VCF merging, compression/indexing, and genotype imputation with BEAGLE.
+###Background 
+
+Traditional whole genome sequencing (WGS) relies on deep coverage—typically 30x to 50x—to capture nearly every base pair in an individual's genome. In contrast, shallow whole genome sequencing, also known as low-pass WGS (LP-WGS), sequences the genome at a much lower depth, usually between 0.1x and 5x coverage. Although this reduced coverage can miss some rare variants, it remains highly effective for detecting common genetic variations across the genome. Importantly, LP-WGS dramatically lowers both the cost and turnaround time for sequencing while still delivering valuable genomic insights.
+
+In addition, when compared to genotyping arrays that only assess pre-selected genetic variants, LP-WGS offers increased statistical power and a broader view of the genome. LP-WGS can achieve up to 99% accuracy in variant detection and requires minimal DNA input.
+
+This repository offers a modular, SLURM-compatible pipeline for low-pass sequencing analysis using GATK and related tools. The workflow encompasses raw data quality control, reference indexing, alignment, per-sample BAM QC, coverage estimation, duplicate marking, base quality score recalibration (BQSR), variant calling (GVCF and joint genotyping), variant filtering (VQSR), VCF merging, compression and indexing, and genotype imputation using BEAGLE.
 
 ## Core Steps & Modules
 
