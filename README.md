@@ -1,6 +1,6 @@
 # Low-pass Whole Genome Sequencing (LP-WGS)
 
-##Background 
+## Background 
 
 Traditional whole genome sequencing (WGS) relies on deep coverage—typically 30x to 50x—to capture nearly every base pair in an individual's genome. In contrast, shallow whole genome sequencing, also known as low-pass WGS (LP-WGS), sequences the genome at a much lower depth, usually between 0.1x and 5x coverage. Although this reduced coverage can miss some rare variants, it remains highly effective for detecting common genetic variations across the genome. Importantly, LP-WGS dramatically lowers both the cost and turnaround time for sequencing while still delivering valuable genomic insights.
 
