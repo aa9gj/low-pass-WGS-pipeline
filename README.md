@@ -12,15 +12,18 @@ This repository offers a modular, SLURM-compatible pipeline for low-pass sequenc
 
 1. Raw FASTQ QC (modules/00_fastq_qc)
 
-   - fastqc.sh: Run FastQC and collate with MultiQC: Catch adapter contamination and base quality issues.
+   - trim_galore: Run adapter trimming and FastQC to catch adapter contamination and base quality issues.
+   - MultiQC: Collate all fastqc reports. 
 
 2. Reference Indexing (modules/01_reference)
    - index_reference.sh: BWA, samtools, and GATK dictionary/fai.
 
 3. Alignment & Read Groups (modules/02_alignment)
 
-   - add_read_groups.sh: Assign unique RG tags per sample.
-   - bwa_align.sh: Align reads with BWA-MEM, output to BAM.
+   - bwa_align.slurm: Align reads with BWA-MEM, output to BAM.
+   - Calculate_avg_depth.slurm: produce sorted bam files and calculate average depth
+   - Calculate_alignment_stats.slurm:
+   - Extract_relevant_stats:
 
 4. BAM QC Metrics (modules/03_bam_qc)
    - collect_metrics.sh: Picard/GATK CollectMultipleMetrics (insert size, duplication metrics).
