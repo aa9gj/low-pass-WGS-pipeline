@@ -1,0 +1,11 @@
+#!/bin/bash
+
+echo -e "sample_name\ttotal_reads\tpercent_mapped\tpercent_properly_paired\tpercent_singletons"
+for file in *.flagstat.txt; do
+    sample=$(basename "$file" .flagstat.txt)
+    total_reads=$(awk 'NR==1{print $1}' "$file")
+    percent_mapped=$(grep " mapped (" "$file" | head -1 | sed -n 's/.*(\(.*\)% :.*/\1/p')
+    percent_properly_paired=$(grep "properly paired" "$file" | sed -n 's/.*(\(.*\)% :.*/\1/p')
+    percent_singletons=$(grep "singletons" "$file" | sed -n 's/.*(\(.*\)% :.*/\1/p')
+    echo -e "${sample}\t${total_reads}\t${percent_mapped}\t${percent_properly_paired}\t${percent_singletons}"
+done
