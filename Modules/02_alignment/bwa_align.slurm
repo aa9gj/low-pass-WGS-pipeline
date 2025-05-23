@@ -12,7 +12,7 @@
 PARENT_DIR="<PATH>"
 REF_GENOME="<PATH_TO_REFERENCE_INDEX>"
 OUTPUT_DIR="<PATH>"
-FILE_LIST="fastq_file_pairs.txt"
+FILE_LIST="fastq_file_pairs.txt" # tab delimited file with pairs next to each other
 
 # Create output directory if it doesn't exist
 mkdir -p "$OUTPUT_DIR"
