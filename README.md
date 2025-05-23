@@ -12,8 +12,7 @@ This repository offers a modular, SLURM-compatible pipeline for low-pass sequenc
 
 1. Raw FASTQ QC (modules/00_fastq_qc)
 
-   - fastqc.sh: Run FastQC and collate with MultiQC.
-   - Catch adapter contamination and base quality issues.
+   - fastqc.sh: Run FastQC and collate with MultiQC: Catch adapter contamination and base quality issues.
 
 2. Reference Indexing (modules/01_reference)
    - index_reference.sh: BWA, samtools, and GATK dictionary/fai.
