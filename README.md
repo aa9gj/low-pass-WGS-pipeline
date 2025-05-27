@@ -22,8 +22,8 @@ This repository offers a modular, SLURM-compatible pipeline for low-pass sequenc
 
    - bwa_align.slurm: Align reads with BWA-MEM, output to BAM.
    - Calculate_avg_depth.slurm: produce sorted bam files and calculate average depth
-   - Calculate_alignment_stats.slurm:
-   - Extract_relevant_stats:
+   - Calculate_alignment_stats.slurm: Check basic alignment stats including the number of reads mapped and properly paired
+   - Extract_relevant_stats: Extract relevant information from calculate_alignment_stats.slurm and report as a tsv files. 
 
 4. BAM QC Metrics (modules/03_bam_qc)
    - collect_metrics.sh: Picard/GATK CollectMultipleMetrics (insert size, duplication metrics).
