@@ -25,23 +25,26 @@ This repository offers a modular, SLURM-compatible pipeline for low-pass sequenc
    - Calculate_alignment_stats.slurm: Check basic alignment stats including the number of reads mapped and properly paired
    - Extract_relevant_stats: Extract relevant information from calculate_alignment_stats.slurm and report as a tsv files. 
 
-4. BAM QC Metrics (modules/03_bam_qc)
-   - collect_metrics.sh: Picard/GATK CollectMultipleMetrics (insert size, duplication metrics).
-
-5. Coverage Estimation (modules/04_coverage)
+4. Coverage Estimation (modules/04_coverage)
    - calculate_depth.sh: Compute average and region-specific depth using samtools or mosdepth.
 
-6. Post-Alignment Processing (modules/05_processing)
+5. Post-Alignment Processing (modules/05_processing)
    - dedup.sh: Mark duplicates with Picard/GATK MarkDuplicates.
    - bqsr.sh: BaseRecalibrator (requires known-sites VCFs). Beware, only works for high confidence species (e.g. human/mouse)
    - apply_bqsr.sh: ApplyBQSR to recalibrate BAM. Beware, only works for high confidence species (e.g. human/mouse)
+   - collect_insert_size:
+   - collect_metrics:
 
-7. Variant Calling & Genotyping (modules/06_variant_calling)
-
+6. Variant Calling & Genotyping (modules/06_variant_calling)
    - haplotypecaller_gvcf.sh: GATK HaplotypeCaller in -ERC GVCF mode.
    - genomicDBImport.sh: Create a joint variant db by chr
    - genotype_gvcfs.sh: GenotypeGVCFs to produce cohort VCF.
    - variant_filtering.sh: Apply VQSR or hard filters to SNPs/INDELs. Beware, only works for high confidence species (e.g. human/mouse)
+   - merge_index_jointvcf.slurm
+   - qc_plots.R
+   - raw_variant_qc.slurm
+   - snp_VQSR.slurm
+   - apply_VQSR.slurm
 
-8. Genotype Imputation (modules/09_imputation)
+7. Genotype Imputation (modules/09_imputation)
    - beagle_impute.sh: Run BEAGLE with reference panel, genetic maps, and compute dosage R².
