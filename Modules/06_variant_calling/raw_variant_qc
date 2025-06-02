@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# SLURM Script for VCF Metrics Extraction using bcftools
+# This script extracts various metrics from a VCF file into separate text files.
+# It is designed to be submitted to a Slurm workload manager.
+
+#SBATCH --job-name=vcf_metrics_extraction  # Job name
+#SBATCH --output=vcf_metrics_%j.out      # Standard output and error log
+#SBATCH --error=vcf_metrics_%j.err       # Standard error log
+#SBATCH --ntasks=1                       # Run on a single CPU
+#SBATCH --cpus-per-task=1                # Request 1 CPU core
+#SBATCH --mem=4G                         # Request 4 GB of memory
+#SBATCH --time=01:00:00                  # Time limit hrs:min:sec
+#SBATCH --partition=debug                # Specify the partition (e.g., debug, standard, long)
+                                         # Adjust partition based on your cluster's setup
+
+# Load necessary modules (adjust module names as per your cluster's environment)
+# If bcftools is in your PATH, you might not need this.
+# module load bcftools/1.15.1 # Example: replace with your bcftools version
+
+# Define the input VCF file
+INPUT_VCF="raw.vcf.gz"
+
+# Check if the input VCF file exists
+if [ ! -f "$INPUT_VCF" ]; then
+    echo "Error: Input VCF file '$INPUT_VCF' not found!"
+    exit 1
+fi
+
+echo "Starting VCF metrics extraction from $INPUT_VCF..."
+
+# a. Extract DP (Depth) per site (from INFO field)
+echo "Extracting site DP..."
+bcftools query -f '%CHROM\t%POS\t%INFO/DP\n' "$INPUT_VCF" > raw_site_dp.txt
+echo "raw_site_dp.txt created."
+
+# b. Extract DP (Depth) per sample (from FORMAT field)
+echo "Extracting sample DP..."
+bcftools query -f '[%CHROM\t%POS\t%SAMPLE\t%DP\n]' "$INPUT_VCF" > raw_sample_dp.txt
+echo "raw_sample_dp.txt created."
+
+# c. Extract GQ (Genotype Quality) per sample
+echo "Extracting sample GQ..."
+bcftools query -f '[%CHROM\t%POS\t%SAMPLE\t%GQ\n]' "$INPUT_VCF" > raw_sample_gq.txt
+echo "raw_sample_gq.txt created."
+
+# d. Extract QUAL (Variant Quality)
+echo "Extracting site QUAL..."
+bcftools query -f '%CHROM\t%POS\t%QUAL\n' "$INPUT_VCF" > raw_site_qual.txt
+echo "raw_site_qual.txt created."
+
+# e. Extract AD (Allelic Depths) for each sample
+echo "Extracting sample AD..."
+bcftools query -f '[%CHROM\t%POS\t%SAMPLE\t%AD\n]' "$INPUT_VCF" > raw_sample_ad.txt
+echo "raw_sample_ad.txt created."
+
+# f. Extract QD, FS, SOR, MQ, ReadPosRankSum, MQRankSum (from INFO field)
+echo "Extracting INFO field metrics (QD, FS, SOR, MQ, ReadPosRankSum, MQRankSum)..."
+bcftools query -f '%CHROM\t%POS\t%INFO/QD\t%INFO/FS\t%INFO/SOR\t%INFO/MQ\t%INFO/ReadPosRankSum\t%INFO/MQRankSum\n' "$INPUT_VCF" > raw_site_info_metrics.txt
+echo "raw_site_info_metrics.txt created."
+
+echo "All VCF metrics extraction complete."
