@@ -39,7 +39,6 @@ This repository offers a modular, SLURM-compatible pipeline for low-pass sequenc
    - haplotypecaller_gvcf.sh: GATK HaplotypeCaller in -ERC GVCF mode.
    - genomicDBImport.sh: Create a joint variant db by chr
    - genotype_gvcfs.sh: GenotypeGVCFs to produce cohort VCF.
-   - variant_filtering.sh: Apply VQSR or hard filters to SNPs/INDELs. Beware, only works for high confidence species (e.g. human/mouse)
    - merge_index_jointvcf.slurm
    - qc_plots.R
    - raw_variant_qc.slurm
