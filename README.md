@@ -40,7 +40,7 @@ This repository offers a modular, SLURM-compatible pipeline for low-pass sequenc
    - genomicDBImport.sh: Create a joint variant db by chr
    - genotype_gvcfs.sh: GenotypeGVCFs to produce cohort VCF.
    - merge_index_jointvcf.slurm
-   - qc_plots.R
+   - qc_plots.R: Custom functions to evaluate qc of variant calling
    - raw_variant_qc.slurm
    - snp_VQSR.slurm
    - apply_VQSR.slurm
