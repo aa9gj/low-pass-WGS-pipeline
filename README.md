@@ -47,3 +47,13 @@ This repository offers a modular, SLURM-compatible pipeline for low-pass sequenc
 
 7. Genotype Imputation (modules/09_imputation)
    - beagle_impute.sh: Run BEAGLE with reference panel, genetic maps, and compute dosage R².
+
+## Running the tests
+
+The optional tests use [bats](https://github.com/bats-core/bats-core). After installing `bats` (for example with `apt-get install bats`), run:
+
+```bash
+bats tests
+```
+
+This executes the test suite under the `tests/` directory.
