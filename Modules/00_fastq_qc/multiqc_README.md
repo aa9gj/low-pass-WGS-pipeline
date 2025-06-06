@@ -4,7 +4,7 @@ This repository contains a Slurm batch script for running **MultiQC**, a tool th
 
 ## Overview
 
-The `multiqc.sh` script executes MultiQC on a specified directory containing quality control reports. It's typically used after individual sample QC (e.g., using FastQC) to get a comprehensive summary across all samples. The script will generate a MultiQC report in a new directory named `multiqc_results`.
+The `multiqc.slurm` script executes MultiQC on a specified directory containing quality control reports. It's typically used after individual sample QC (e.g., using FastQC) to get a comprehensive summary across all samples. The script will generate a MultiQC report in a new directory named `multiqc_results`.
 
 ## Prerequisites
 
@@ -18,15 +18,15 @@ The `multiqc.sh` script executes MultiQC on a specified directory containing qua
     Ensure that your FastQC (or other QC tool) output files are located in the directory specified in the `multiqc` command within the script (e.g., `fastqc_results`).
 
 2.  **Submit the job:**
-    Navigate to the directory containing `multiqc.sh` on your HPC system, then submit the job using `sbatch`:
+    Navigate to the directory containing `multiqc.slurm` on your HPC system, then submit the job using `sbatch`:
 
     ```bash
-    sbatch multiqc.sh
+    sbatch multiqc.slurm
     ```
 
 ## Script Configuration
 
-You can adjust the following SBATCH directives in `multiqc.sh` based on your resource requirements:
+You can adjust the following SBATCH directives in `multiqc.slurm` based on your resource requirements:
 
 * `--job-name`: Name of your Slurm job.
 * `--output`: Standard output file name pattern. `%j` is replaced by the job ID.
