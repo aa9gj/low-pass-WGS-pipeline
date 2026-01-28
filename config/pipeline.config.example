@@ -1,0 +1,105 @@
+#!/bin/bash
+# =============================================================================
+# LP-WGS Pipeline Configuration Template
+# =============================================================================
+# Copy this file to 'pipeline.config' and customize for your environment.
+# Source this file in your SLURM scripts: source ../config/pipeline.config
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Reference Genome Paths
+# -----------------------------------------------------------------------------
+# Path to the reference genome FASTA file (must be indexed)
+REF_GENOME="/path/to/reference/genome.fa"
+
+# Known sites VCF for BQSR (required for BQSR, species with well-annotated variants)
+# For human: dbSNP, Mills indels, 1000G known indels
+# For model organisms: species-specific variant databases
+KNOWN_SITES_VCF="/path/to/known_sites.vcf.gz"
+
+# -----------------------------------------------------------------------------
+# Input/Output Directories
+# -----------------------------------------------------------------------------
+# Directory containing raw FASTQ files
+RAW_FASTQ_DIR="/path/to/raw/fastq"
+
+# Main output directory (all results will be organized under this)
+OUTPUT_BASE_DIR="/path/to/output"
+
+# Intermediate directories (auto-created by scripts)
+FASTQC_DIR="${OUTPUT_BASE_DIR}/00_fastqc"
+ALIGNMENT_DIR="${OUTPUT_BASE_DIR}/02_alignment"
+COVERAGE_DIR="${OUTPUT_BASE_DIR}/04_coverage"
+PROCESSING_DIR="${OUTPUT_BASE_DIR}/05_processing"
+VARIANT_DIR="${OUTPUT_BASE_DIR}/06_variants"
+IMPUTATION_DIR="${OUTPUT_BASE_DIR}/09_imputation"
+LOGS_DIR="${OUTPUT_BASE_DIR}/logs"
+
+# -----------------------------------------------------------------------------
+# Sample Information
+# -----------------------------------------------------------------------------
+# File containing sample information (tab-delimited: R1 R2)
+SAMPLE_LIST="${RAW_FASTQ_DIR}/samples.txt"
+
+# Number of samples (used for array job indices)
+# Set this to the number of lines in your sample list
+NUM_SAMPLES=40
+
+# -----------------------------------------------------------------------------
+# Chromosomes for Processing
+# -----------------------------------------------------------------------------
+# Adjust for your species. Examples:
+# Human: (chr1 chr2 ... chr22 chrX chrY chrM)
+# Mouse: (chr1 chr2 ... chr19 chrX chrY chrM)
+# Dog (canFam4): shown below
+CHROMOSOMES=(chr1 chr2 chr3 chr4 chr5 chr6 chr7 chr8 chr9 chr10 chr11 chr12 chr13 chr14 chr15 chr16 chr17 chr18 chr19 chr20 chr21 chr22 chr23 chr24 chr25 chr26 chr27 chr28 chr29 chr30 chr31 chr32 chr33 chr34 chr35 chr36 chr37 chr38 chrX)
+NUM_CHROMOSOMES=${#CHROMOSOMES[@]}
+
+# -----------------------------------------------------------------------------
+# SLURM Resource Defaults
+# -----------------------------------------------------------------------------
+# These can be overridden in individual scripts
+DEFAULT_PARTITION="standard"
+DEFAULT_ACCOUNT=""  # Set if your cluster requires an account
+
+# -----------------------------------------------------------------------------
+# Tool-Specific Settings
+# -----------------------------------------------------------------------------
+# BWA alignment threads
+BWA_THREADS=8
+
+# GATK Java memory options
+GATK_JAVA_OPTS="-Xmx28g -Xms28g"
+
+# BEAGLE settings
+BEAGLE_JAR="/path/to/beagle.jar"
+BEAGLE_REF_PANEL="/path/to/reference_panel.vcf.gz"
+
+# -----------------------------------------------------------------------------
+# Module Names (adjust for your HPC environment)
+# -----------------------------------------------------------------------------
+# Some systems use 'module load', others use 'ml'
+# Some systems have different module names
+MODULE_JAVA="java/17.0.9"
+MODULE_BWA="bwa"
+MODULE_SAMTOOLS="samtools"
+MODULE_PICARD="picard"
+MODULE_GATK="gatk"
+MODULE_FASTQC="fastqc"
+MODULE_MULTIQC="multiqc"
+MODULE_BCFTOOLS="bcftools"
+MODULE_R="R"
+
+# -----------------------------------------------------------------------------
+# VQSR Resources (for variant quality score recalibration)
+# -----------------------------------------------------------------------------
+# Resource VCF for training VQSR model
+VQSR_RESOURCE_VCF="/path/to/training_variants.vcf.gz"
+VQSR_RESOURCE_NAME="known_variants"
+
+# -----------------------------------------------------------------------------
+# Temporary Directory
+# -----------------------------------------------------------------------------
+# Directory for temporary files (should have sufficient space)
+# Many GATK tools create large temp files
+TMP_DIR="${OUTPUT_BASE_DIR}/tmp"
